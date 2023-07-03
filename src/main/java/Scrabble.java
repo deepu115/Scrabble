@@ -3,10 +3,9 @@ public class Scrabble {
     public Scrabble(String word){
         this.word = word;
     }
-     public int score() {
-         if (this.word.equals("")) {
-         }
-         return 0;
-     }
-
+    public int score() {
+        if (this.word == null || this.word.isEmpty()) {
+        }
+        return 0;
+    }
 }
