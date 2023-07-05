@@ -23,7 +23,7 @@ public class Scrabble {
         int score = (word == null || word.isEmpty()) ? 0 :
                 word.chars().map(c -> LettersMap.getScore((char) c)).sum();
 
-        return doubleWord ? score * 2 : score;
+        return doubleWord ? score * 2 : tripleWord? score *3:score;
     }
 
 }
