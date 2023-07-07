@@ -1,5 +1,3 @@
-
-
 public class Scrabble {
     private String word;
     private Character[] doubleLetter;
@@ -12,7 +10,7 @@ public class Scrabble {
         this.word = word;
     }
     public Scrabble(String word,Character[] doubleLetter,Character[] tripleLetter,boolean doubleWord,boolean tripleWord){
-
+      //overloading constructor according to test cases
         this.word = word;
         this.doubleLetter=doubleLetter;
         this.tripleLetter=tripleLetter;
@@ -20,10 +18,20 @@ public class Scrabble {
         this.tripleWord=tripleWord;
     }
     public int score() {
-        int score = (word == null || word.isEmpty()) ? 0 :
-                word.chars().map(c -> LettersMap.getScore((char) c)).sum();
+        int score = 0;
 
-        return doubleWord ? score * 2 : tripleWord? score *3:score;
+        if (word != null && !word.isEmpty()) {
+            for (int i = 0; i < word.length(); i++) {
+                char letter = Character.toUpperCase(word.charAt(i));
+                int letterScore = LettersMap.getScore(letter);
+                // Check if the current position is a double letter
+                return  (doubleLetter != null && i < doubleLetter.length && doubleLetter[i] != null) ? (letterScore*2):score;
+
+            }
+        }
+
+        return doubleWord ? score * 2 : tripleWord ? score * 3 : score;
     }
+
 
 }

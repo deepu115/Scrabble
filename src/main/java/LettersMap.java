@@ -5,6 +5,6 @@ public class LettersMap {
 
     public static int getScore(char letter) {
         letter = Character.toUpperCase(letter);
-        return (letter >= 'A' && letter <= 'Z') ? scores[letter - 'A'] : 0;
+        return (letter >= 'A' && letter <= 'Z') ? scores[letter - 'A'] : 0;// Retrieves the score of the letter based on its position in the alphabet
     }
 }
