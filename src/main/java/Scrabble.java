@@ -5,12 +5,13 @@ public class Scrabble {
     boolean doubleWord;
     boolean tripleWord;
 
+
     public Scrabble(String word){
 
         this.word = word;
     }
     public Scrabble(String word,Character[] doubleLetter,Character[] tripleLetter,boolean doubleWord,boolean tripleWord){
-      //overloading constructor according to test cases
+        // Overloading constructor to handle test cases with letter multipliers and word multipliers
         this.word = word;
         this.doubleLetter=doubleLetter;
         this.tripleLetter=tripleLetter;
@@ -19,21 +20,18 @@ public class Scrabble {
     }
     public int score() {
         int score = 0;
-
-        if (word != null && !word.isEmpty()) {
-            for (int i = 0; i < word.length(); i++) {
-                char letter = Character.toUpperCase(word.charAt(i));
-                int letterScore = LettersMap.getScore(letter);
-                // Check if the current position is a double letter
-                letterScore *=(doubleLetter != null && i < doubleLetter.length && doubleLetter[i] != null) ? 2:1;
-                 // Check if the current position is a triple letter
-                letterScore*=(tripleLetter != null && i < tripleLetter.length && tripleLetter[i] != null) ? 3:1;
-                score += letterScore;
-            }
+        if (word == null || word.isEmpty()) {return score;}
+        for (int i = 0; i < word.length(); i++) {
+            score += calculateLetterScore(Character.toUpperCase(word.charAt(i)), i); // Calculate the letter score for each letter in the word and add it to the total score
         }
+        return score * (doubleWord ? 2 : tripleWord ? 3 : 1);
 
-        return doubleWord ? score * 2 : tripleWord ? score * 3 : score;
+}
+    private int calculateLetterScore(char letter, int position) {
+        int letterScore = LettersMap.getScore(letter);// Get the score for the letter from the LettersMap class
+        letterScore *= (doubleLetter != null && position < doubleLetter.length && doubleLetter[position] != null ? 2 : 1) *
+                (tripleLetter != null && position < tripleLetter.length && tripleLetter[position] != null ? 3 : 1);
+        // Multiply the letter score by the corresponding letter multiplier (2 for double letter, 3 for triple letter)
+        return letterScore;
     }
-
-
 }
