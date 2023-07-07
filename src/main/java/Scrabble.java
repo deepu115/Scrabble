@@ -25,8 +25,10 @@ public class Scrabble {
                 char letter = Character.toUpperCase(word.charAt(i));
                 int letterScore = LettersMap.getScore(letter);
                 // Check if the current position is a double letter
-                return  (doubleLetter != null && i < doubleLetter.length && doubleLetter[i] != null) ? (letterScore*2):score;
-
+                letterScore *=(doubleLetter != null && i < doubleLetter.length && doubleLetter[i] != null) ? 2:1;
+                 // Check if the current position is a triple letter
+                letterScore*=(tripleLetter != null && i < tripleLetter.length && tripleLetter[i] != null) ? 3:1;
+                score += letterScore;
             }
         }
 
