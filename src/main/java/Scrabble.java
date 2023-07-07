@@ -19,14 +19,16 @@ public class Scrabble {
         this.tripleWord=tripleWord;
     }
     public int score() {
+        return (word == null || word.isEmpty()) ? 0 : calculateScore();
+    }
+    private int calculateScore() {
         int score = 0;
-        if (word == null || word.isEmpty()) {return score;}
         for (int i = 0; i < word.length(); i++) {
-            score += calculateLetterScore(Character.toUpperCase(word.charAt(i)), i); // Calculate the letter score for each letter in the word and add it to the total score
+            score += calculateLetterScore(Character.toUpperCase(word.charAt(i)), i);
         }
         return score * (doubleWord ? 2 : tripleWord ? 3 : 1);
+    }
 
-}
     private int calculateLetterScore(char letter, int position) {
         int letterScore = LettersMap.getScore(letter);// Get the score for the letter from the LettersMap class
         letterScore *= (doubleLetter != null && position < doubleLetter.length && doubleLetter[position] != null ? 2 : 1) *
